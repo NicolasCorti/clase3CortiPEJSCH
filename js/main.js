@@ -1,50 +1,92 @@
-const iva= 1.21;
-const carrito = [];
-let total= 0;
+let productoElegido;
+let cantidadElegida;
+let consultaProducto = 1;
+let carrito = [];
+let neto = 0;
+let total = 0;
 
-// Constructor de Producto
+const iva = 1.21;
+
 function Producto (nombre, precio, cantidad){
     this.nombre = nombre,
     this.precio = precio,
     this.cantidad = cantidad
 }
-// Inicio
-prompt("Bienvenido al sistema de compras. Se les  mostraran los productos por pantalla, ingrese la cantidad que desea de cada uno, al finalizar le indicará el total. Presione aceptar para continuar.");
 
-let cantidad1 = prompt('Remera tema cucurucho, precio lista $500. Cantidad:');
-let producto1 = new Producto('Remera tema cucurucho', 500, cantidad1);
-carrito.push(producto1);
+let producto1 = new Producto('Remera tema cucurucho', 500, 0);
+let producto2 = new Producto('Remera tema sunday', 500, 0);
+let producto3 = new Producto('Remera tema palito', 500, 0);
+let producto4 = new Producto('Remera tema helado', 500, 0);
+let producto5 = new Producto('Calendario de helado', 70, 0);
+let producto6 = new Producto('Poster de helado', 200, 0);
 
-let cantidad2 = prompt('Remera tema sunday, precio lista $500. Cantidad:');
-let producto2 = new Producto('Remera tema sunday', 500, cantidad2);
-carrito.push(producto2);
 
-let cantidad3 = prompt('Remera tema palito, precio lista $500. Cantidad:');
-let producto3 = new Producto('Remera tema palito', 500, cantidad3);
-carrito.push(producto3);
 
-let cantidad4 = prompt('Remera tema helado, precio lista $500. Cantidad:');
-let producto4 = new Producto('Remera tema helado', 500, cantidad4);
-carrito.push(producto4);
+alert('Bienvenid@ al sistema de compras. A continuación podrá ver los productos que tenemos para ofrecerle. Presione aceptar para continuar.');
 
-let cantidad5 = prompt('Calendario de helado, precio lista $70. Cantidad:');
-let producto5 = new Producto('Calendario de helado', 70, cantidad5);
-carrito.push(producto5);
+while(consultaProducto){
+    alert(  'Producto 1:               ' + producto1.nombre + '               $' + producto1.precio + ' + IVA. ' +
+            'Producto 2:               ' + producto2.nombre + '                    $' + producto2.precio + ' + IVA. ' +
+            'Producto 3:               ' + producto3.nombre + '                      $' + producto3.precio + ' + IVA. ' +
+            'Producto 4:               ' + producto4.nombre + '                    $' + producto4.precio + ' + IVA. ' +
+            'Producto 5:               ' + producto5.nombre + '                     $' + producto5.precio + ' + IVA. ' +
+            'Producto 6:               ' + producto6.nombre + '                          $' + producto6.precio + ' + IVA.');
 
-let cantidad6 = prompt('Poster de helado, precio lista $200. Cantidad:');
-let producto6 = new Producto('Poster de helado', 200, cantidad6);
-carrito.push(producto6);
+    productoElegido = prompt ('Ingrese el número de producto que desea comprar.');
 
-// Calculo total de carrito
-carrito.forEach(producto => {
-    total+= (producto.precio * producto.cantidad);
-});
-// agrego el Iva
-total= total*iva;
+    switch(productoElegido){
+        case "1":
+            alert('El producto elegido es ' + producto1.nombre)
+            producto1.cantidad = prompt ('Ingrese la cantidad que desea comprar.')
+            carrito.push(producto1)
+            break;
+        case "2":
+            alert('El producto elegido es ' + producto2.nombre)
+            producto2.cantidad = prompt ('Ingrese la cantidad que desea comprar.')
+            carrito.push(producto2)
+            break;
+        case "3":
+            alert('El producto elegido es ' + producto3.nombre)
+            producto3.cantidad = prompt ('Ingrese la cantidad que desea comprar.')
+            carrito.push(producto3)
+            break;
+        case "4":
+            alert('El producto elegido es ' + producto4.nombre)
+            producto4.cantidad = prompt ('Ingrese la cantidad que desea comprar.')
+            carrito.push(producto4)
+            break;
+        case "5":
+            alert('El producto elegido es ' + producto5.nombre)
+            producto5.cantidad = prompt ('Ingrese la cantidad que desea comprar.')
+            carrito.push(producto5)
+            break;
+        case "6":
+            alert('El producto elegido es ' + producto6.nombre)
+            producto6.cantidad = prompt ('Ingrese la cantidad que desea comprar.')
+            carrito.push(producto6)
+            break;
+        default:
+            alert("El número ingresado no es válido");
+            break;
+    }
 
-// Devuelvo el total
-prompt("El TOTAL de la compra es: $", total);
+    let caracter = prompt ('¿Desea comprar otro producto? (Ingrese "1" para ingresar otro o "0" para terminar)');
 
-carrito.forEach(producto => {
-    alert(producto.nombre, "precio: "+ producto.precio +"cantidad: " + producto.cantidad);
-});
+    if(caracter == 0){
+        // Calculo total de carrito sin IVA
+        carrito.forEach(producto => {
+            neto += (producto.precio * producto.cantidad);
+        });
+
+        // Agrego el IVA
+        total = neto * iva;
+
+        // Devuelvo el total
+        alert(  '                                   El monto de la compra es:                                        ' +
+                'Precio neto: $ ' + neto + 'Precio final: $ ' + total);
+        // Cierro el ciclo
+        consultaProducto=0;
+    }else if(caracter != 1){
+        alert("La opción ingresada no es válida");
+    }
+}
